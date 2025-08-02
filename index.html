@@ -1,494 +1,485 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Love's Birthday Surprise</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: #fff;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-		
-		music-toggle {position: fixed;
-    top: 20px;
-    right: 20px;
-    background: rgba(255, 126, 185, 0.9);
-    border: none;
-    padding: 0.8rem 1rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    cursor: pointer;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 25px rgba(255,117,140,0.5);}
-		
-
-        .container {
-            max-width: 1200px;
-            width: 90%;
-            text-align: center;
-            z-index: 10;
-            padding: 2rem;
-        }
-
-        .header {
-            margin-bottom: 3rem;
-            animation: fadeInDown 1.5s ease-out;
-        }
-
-        h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            color: #ff7eb9;
-            text-shadow: 0 0 25px rgba(255, 126, 185, 0.7);
-            font-family: 'Dancing Script', cursive;
-            animation: pulse 2s infinite alternate;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-            color: #e6e6ff;
-        }
-
-        .countdown-container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(12px);
-            border-radius: 20px;
-            padding: 3rem 2rem;
-            margin: 2rem auto;
-            max-width: 900px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1.5s ease-out;
-        }
-
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin: 2rem 0;
-        }
-
-        .countdown-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .countdown-number {
-            font-size: 5rem;
-            font-weight: 700;
-            width: 150px;
-            height: 150px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            background: linear-gradient(145deg, #ff7eb9, #ff758c);
-            box-shadow: 0 10px 25px rgba(255, 117, 140, 0.5);
-            margin-bottom: 1rem;
-            position: relative;
-            overflow: hidden;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .countdown-number::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
-            transform: rotate(30deg);
-        }
-
-        .countdown-label {
-            font-size: 1.3rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #c9d1d9;
-        }
-
-        .surprise-container {
-            margin: 3rem auto;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            max-width: 600px;
-        }
-
-        .surprise-container.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .surprise-btn {
-            background: linear-gradient(135deg, #ff7eb9, #ff4d94);
-            color: white;
-            border: none;
-            padding: 1.5rem 3.5rem;
-            font-size: 1.8rem;
-            font-weight: 600;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(255, 117, 140, 0.6);
-            position: relative;
-            overflow: hidden;
-            font-family: 'Dancing Script', cursive;
-            letter-spacing: 3px;
-        }
-
-        .surprise-btn:hover {
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 117, 140, 0.8);
-        }
-
-        .surprise-btn:active {
-            transform: scale(0.98);
-        }
-
-        .surprise-btn::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -60%;
-            width: 20px;
-            height: 200%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: rotate(25deg);
-            transition: all 0.7s;
-        }
-
-        .surprise-btn:hover::after {
-            left: 120%;
-        }
-
-        .message {
-            font-size: 1.3rem;
-            margin: 2rem auto;
-            line-height: 1.8;
-            max-width: 700px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            animation: fadeIn 2s ease-out;
-        }
-
-        .hearts-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .heart {
-            position: absolute;
-            font-size: 1.8rem;
-            color: #ff7eb9;
-            opacity: 0.7;
-            animation: float 6s infinite ease-in-out;
-        }
-
-        .footer {
-            position: absolute;
-            bottom: 20px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.9rem;
-            z-index: 10;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); text-shadow: 0 0 15px rgba(255, 126, 185, 0.7); }
-            100% { transform: scale(1.05); text-shadow: 0 0 25px rgba(255, 126, 185, 0.9); }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        @media (max-width: 768px) {
-            h1 { font-size: 3rem; }
-            .countdown-number { 
-                font-size: 3rem; 
-                width: 100px;
-                height: 100px;
-            }
-            .countdown { gap: 1rem; }
-            .surprise-btn { font-size: 1.5rem; padding: 1.2rem 2.5rem; }
-        }
-		
-		
-    </style>
-</head>
-<body>
-    <div class="hearts-container" id="hearts"></div>
-	<div class="container">
-	<audio id="bg-music" src="birthday.mp3" loop preload="auto"></audio>
-	<button id="music-toggle" aria-label="Toggle music" style="position: fixed;
-    top: 20px;
-    right: 20px;
-    background: rgba(255, 126, 185, 0.9);
-    border: none;
-    padding: 0.8rem 1rem;
-    border-radius: 50px;
-    font-size: 1rem;
-    cursor: pointer;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 25px rgba(255,117,140,0.5);">
-    <i id="music-icon" class="fas fa-play"></i> Music
-</button>
-
-        <div class="header">
-            <h1>For My Honey Nancy</h1>
-            <div class="subtitle">Every moment brings us closer to celebrating the most amazing person in my life</div>
-        </div>
-        
-        <div class="message">
-            My dearest, the countdown has begun for your special day. Each second that passes fills my heart with more love and excitement. 
-            Get ready for a wonderful surprise that's as beautiful as you are!
-        </div>
-        
-        <div class="countdown-container">
-            <div class="countdown">
-                <div class="countdown-item">
-                    <div id="days" class="countdown-number">00</div>
-                    <div class="countdown-label">Days</div>
-                </div>
-                <div class="countdown-item">
-                    <div id="hours" class="countdown-number">00</div>
-                    <div class="countdown-label">Hours</div>
-                </div>
-                <div class="countdown-item">
-                    <div id="minutes" class="countdown-number">00</div>
-                    <div class="countdown-label">Minutes</div>
-                </div>
-                <div class="countdown-item">
-                    <div id="seconds" class="countdown-number">00</div>
-                    <div class="countdown-label">Seconds</div>
-                </div>
-            </div>
-        </div>
-        
-        <div id="surprise-container" class="surprise-container">
-            <button id="surprise-btn" class="surprise-btn">
-                <i class="fas fa-gift"></i> Reveal Your Surprise!
-            </button>
-        </div>
-    </div>
-    
-    <div class="footer">Made with <i class="fas fa-heart" style="color:#ff7eb9"></i> for the most special person</div>
-
-    <script>
-	
-	const audio = document.getElementById('bg-music');
-    const musicToggle = document.getElementById('music-toggle');
-    const musicIcon = document.getElementById('music-icon');
-    let isPlaying = false;
-	
-	
-	function tryPlayMusic() {
-        if (isPlaying) return;
-        audio.play().then(() => {
-            isPlaying = true;
-            musicIcon.classList.replace('fa-play', 'fa-pause');
-        }).catch(() => {
-            // suppressed autoplay; will wait for user toggle
-        });
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Love's Birthday Surprise</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      color: #fff;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
-    musicToggle.addEventListener('click', () => {
-        if (isPlaying) {
-            audio.pause();
-            isPlaying = false;
-            musicIcon.classList.replace('fa-pause', 'fa-play');
-        } else {
-            audio.play().then(() => {
-                isPlaying = true;
-                musicIcon.classList.replace('fa-play', 'fa-pause');
-            }).catch(() => {
-                // Shouldn't usually happen since user clicked
-            });
-        }
+    .container {
+      max-width: 1200px;
+      width: 90%;
+      text-align: center;
+      z-index: 10;
+      padding: 2rem;
+    }
+
+    .header {
+      margin-bottom: 3rem;
+      animation: fadeInDown 1.5s ease-out;
+    }
+
+    h1 {
+      font-size: 4.5rem;
+      margin-bottom: 1.5rem;
+      color: #ff7eb9;
+      text-shadow: 0 0 25px rgba(255, 126, 185, 0.7);
+      font-family: 'Dancing Script', cursive;
+      animation: pulse 2s infinite alternate;
+    }
+
+    .subtitle {
+      font-size: 1.5rem;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #e6e6ff;
+    }
+
+    .countdown-container {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      margin: 2rem auto;
+      max-width: 900px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 1.5s ease-out;
+    }
+
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+    }
+
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .countdown-number {
+      font-size: 5rem;
+      font-weight: 700;
+      width: 150px;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #ff7eb9, #ff758c);
+      box-shadow: 0 10px 25px rgba(255, 117, 140, 0.5);
+      margin-bottom: 1rem;
+      position: relative;
+      overflow: hidden;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .countdown-number::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+      transform: rotate(30deg);
+    }
+
+    .countdown-label {
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #c9d1d9;
+    }
+
+    .surprise-container {
+      margin: 3rem auto;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      max-width: 600px;
+    }
+
+    .surprise-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .surprise-btn {
+      background: linear-gradient(135deg, #ff7eb9, #ff4d94);
+      color: white;
+      border: none;
+      padding: 1.5rem 3.5rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(255, 117, 140, 0.6);
+      position: relative;
+      overflow: hidden;
+      font-family: 'Dancing Script', cursive;
+      letter-spacing: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .surprise-btn:hover {
+      transform: scale(1.05) translateY(-5px);
+      box-shadow: 0 15px 40px rgba(255, 117, 140, 0.8);
+    }
+
+    .surprise-btn:active {
+      transform: scale(0.98);
+    }
+
+    .surprise-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -60%;
+      width: 20px;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(25deg);
+      transition: all 0.7s;
+    }
+
+    .surprise-btn:hover::after {
+      left: 120%;
+    }
+
+    .message {
+      font-size: 1.3rem;
+      margin: 2rem auto;
+      line-height: 1.8;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: fadeIn 2s ease-out;
+    }
+
+    .hearts-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.8rem;
+      color: #ff7eb9;
+      opacity: 0.7;
+      animation: float 6s infinite ease-in-out;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 20px;
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.9rem;
+      z-index: 10;
+    }
+
+    /* Music toggle styling fallback in CSS */
+    #music-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 126, 185, 0.9);
+      border: none;
+      padding: 0.8rem 1rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      cursor: pointer;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 25px rgba(255,117,140,0.5);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); text-shadow: 0 0 15px rgba(255,126,185,0.7); }
+      100% { transform: scale(1.05); text-shadow: 0 0 25px rgba(255,126,185,0.9); }
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 3rem; }
+      .countdown-number {
+        font-size: 3rem;
+        width: 100px;
+        height: 100px;
+      }
+      .countdown { gap: 1rem; }
+      .surprise-btn { font-size: 1.5rem; padding: 1.2rem 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts-container" id="hearts"></div>
+
+  <div class="container">
+    <audio id="bg-music" src="birthday.mp3" loop preload="auto"></audio>
+    <button id="music-toggle" aria-label="Toggle music">
+      <i id="music-icon" class="fas fa-play"></i> Music
+    </button>
+
+    <div class="header">
+      <h1>For My Honey Nancy</h1>
+      <div class="subtitle">Every moment brings us closer to celebrating the most amazing person in my life</div>
+    </div>
+
+    <div class="message">
+      My dearest, the countdown has begun for your special day. Each second that passes fills my heart with more love and excitement. 
+      Get ready for a wonderful surprise that's as beautiful as you are!
+    </div>
+
+    <div class="countdown-container">
+      <div class="countdown">
+        <div class="countdown-item">
+          <div id="days" class="countdown-number">00</div>
+          <div class="countdown-label">Days</div>
+        </div>
+        <div class="countdown-item">
+          <div id="hours" class="countdown-number">00</div>
+          <div class="countdown-label">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div id="minutes" class="countdown-number">00</div>
+          <div class="countdown-label">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div id="seconds" class="countdown-number">00</div>
+          <div class="countdown-label">Seconds</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- placeholder for surprise content -->
+    <div id="surprise-wrapper"></div>
+  </div>
+
+  <div class="footer">
+    Made with <i class="fas fa-heart" style="color:#ff7eb9"></i> for the most special person
+  </div>
+ <script>
+  const audio = document.getElementById('bg-music');
+  const musicToggle = document.getElementById('music-toggle');
+  const musicIcon = document.getElementById('music-icon');
+  let isPlaying = false;
+
+  function tryPlayMusic() {
+    if (isPlaying) return;
+    audio.play().then(() => {
+      isPlaying = true;
+      musicIcon.classList.replace('fa-play', 'fa-pause');
+    }).catch(() => {
+      // autoplay blocked until user interacts
     });
+  }
 
-	     
+  musicToggle.addEventListener('click', () => {
+    if (isPlaying) {
+      audio.pause();
+      isPlaying = false;
+      musicIcon.classList.replace('fa-pause', 'fa-play');
+    } else {
+      audio.play().then(() => {
+        isPlaying = true;
+        musicIcon.classList.replace('fa-play', 'fa-pause');
+      }).catch(() => {});
+    }
+  });
 
-   
+  // Birthday target (August 7, 2025)
+  const birthday = new Date(2025, 7, 7);
 
-        // Set the birthday date (August 7, 2025)
-        const birthday = new Date(2025, 7, 7);
-        
-        // Create floating hearts
-        function createHearts() {
-            const heartsContainer = document.getElementById('hearts');
-            const heartCount = 25;
-            
-            for (let i = 0; i < heartCount; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerHTML = '❤️';
-                heart.style.left = `${Math.random() * 100}%`;
-                heart.style.top = `${Math.random() * 100}%`;
-                heart.style.animationDuration = `${5 + Math.random() * 10}s`;
-                heart.style.animationDelay = `${Math.random() * 5}s`;
-                heart.style.fontSize = `${1 + Math.random() * 2}rem`;
-                heartsContainer.appendChild(heart);
-            }
-        }
-        
-        // Update countdown timer
-        function updateCountdown() {
-            const now = new Date();
-            const diff = birthday - now;
-            
-            if (diff <= 0) {
-                // Birthday has arrived!
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-                
-                // Show surprise button
-                document.getElementById('surprise-container').classList.add('visible');
-                return;
-            }
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            
-            requestAnimationFrame(updateCountdown);
-        }
-        
-        // Handle surprise button click
-        function handleSurpriseClick() {
-            // Create a romantic message display
-            const container = document.querySelector('.container');
-            container.innerHTML = `
-                <div class="header">
-                    <h1>Happy Birthday, My Love!</h1>
-                    <div class="subtitle">To the most wonderful person in my life</div>
-                </div>
-                
-                <div class="message" style="animation: none; transform: scale(1);">
-                    <p style="font-size: 1.8rem; margin-bottom: 1.5rem; color: #ff7eb9;">
-                        <i class="fas fa-heart"></i> August 7, 2025 <i class="fas fa-heart"></i>
-                    </p>
-                    <p>On your special day, I want you to know how incredibly blessed I am to have you. 
-                    Your smile lights up my world, your laughter is my favorite melody, and your love 
-                    is the greatest gift I've ever received.</p>
-                    
-                    <p style="margin-top: 1.5rem;">Every moment with you is a treasure, and I cherish every second we share together. 
-                    Today is your day, and I hope it's filled with all the joy and happiness you bring to my life.</p>
-                    
-                    <div style="margin-top: 2rem; font-size: 2rem; color: #ff7eb9;">
-                        Forever yours, <br>with all my love
-                    </div>
-                </div>
-                
-                <div class="surprise-container visible">
-                    <button id="reset-btn" class="surprise-btn">
-                        <i class="fas fa-redo"></i> Relive the Countdown
-                    </button>
-                </div>
-            `;
-            
-            // Add reset button functionality
-            document.getElementById('reset-btn').addEventListener('click', () => {
-                location.reload();
-            });
-            
-            // Add more hearts
-            const heartsContainer = document.getElementById('hearts');
-            for (let i = 0; i < 30; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                heart.innerHTML = '❤️';
-                heart.style.left = `${Math.random() * 100}%`;
-                heart.style.top = `${Math.random() * 100}%`;
-                heart.style.animationDuration = `${3 + Math.random() * 5}s`;
-                heart.style.fontSize = `${1 + Math.random() * 3}rem`;
-                heartsContainer.appendChild(heart);
-            }
-        }
-        
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            createHearts();
-            updateCountdown();
-            
-            // Add event listener to surprise button
-            document.getElementById('surprise-btn').addEventListener('click', handleSurpriseClick);
-        });
-    </script>
+  // Floating hearts
+  function createHearts() {
+    const heartsContainer = document.getElementById('hearts');
+    if (!heartsContainer) return;
+    const heartCount = 25;
+    for (let i = 0; i < heartCount; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.top = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${5 + Math.random() * 10}s`;
+      heart.style.animationDelay = `${Math.random() * 5}s`;
+      heart.style.fontSize = `${1 + Math.random() * 2}rem`;
+      heartsContainer.appendChild(heart);
+    }
+  }
+
+  // Helper to pad
+  function pad(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  // Update countdown every second
+  function updateCountdown() {
+    const now = new Date();
+    const diff = birthday.getTime() - now.getTime();
+
+    if (diff <= 0) {
+      document.getElementById('days').textContent = '00';
+      document.getElementById('hours').textContent = '00';
+      document.getElementById('minutes').textContent = '00';
+      document.getElementById('seconds').textContent = '00';
+
+      if (!document.getElementById('surprise-container')) {
+        showSurprise();
+      }
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+      (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('days').textContent = pad(days);
+    document.getElementById('hours').textContent = pad(hours);
+    document.getElementById('minutes').textContent = pad(minutes);
+    document.getElementById('seconds').textContent = pad(seconds);
+  }
+
+  function showSurprise() {
+    tryPlayMusic();
+    const wrapper = document.getElementById('surprise-wrapper');
+    if (!wrapper) return;
+    wrapper.innerHTML = `
+      <div id="surprise-container" class="surprise-container visible">
+        <button id="surprise-btn" class="surprise-btn">
+          <i class="fas fa-gift"></i> Reveal Your Surprise!
+        </button>
+      </div>
+    `;
+    document
+      .getElementById('surprise-btn')
+      .addEventListener('click', handleSurpriseClick);
+  }
+
+  function handleSurpriseClick() {
+    const container = document.querySelector('.container');
+    if (!container) return;
+   container.innerHTML = `
+  <div class="header">
+    <h1>Happy Birthday, My Love!</h1>
+    <div class="subtitle">To the most wonderful person in my life</div>
+  </div>
+  <div class="message" style="animation: none; transform: scale(1);">
+    <p style="font-size: 1.8rem; margin-bottom: 1.5rem; color: #ff7eb9;">
+      <i class="fas fa-heart"></i> August 7, 2025 <i class="fas fa-heart"></i>
+    </p>
+    <p>On your special day, I want you to know how incredibly blessed I am to have you. 
+    Your smile lights up my world, your laughter is my favorite melody, and your love 
+    is the greatest gift I've ever received.</p>
+    <p style="margin-top: 1.5rem;">Every moment with you is a treasure, and I cherish every second we share together. 
+    Today is your day, and I hope it's filled with all the joy and happiness you bring to my life.</p>
+    <div style="margin-top: 2rem; font-size: 2rem; color: #ff7eb9;">
+      Forever yours, <br>with all my love
+    </div>
+  </div>
+  <div style="margin-top:1.5rem; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+    <button id="reset-btn" class="surprise-btn">
+      <i class="fas fa-redo"></i> Relive the Countdown
+    </button>
+    <button id="love-letter-btn" class="surprise-btn" style="background: linear-gradient(135deg, #ffb3d9, #ff7eb9);">
+      <i class="fas fa-envelope-open"></i> Open Love Letter
+    </button>
+  </div>
+`;
+
+document.getElementById('reset-btn').addEventListener('click', () => location.reload());
+document.getElementById('love-letter-btn').addEventListener('click', () => {
+  window.open('love-letter.html', '_blank');
+});
+
+    document
+      .getElementById('reset-btn')
+      .addEventListener('click', () => location.reload());
+
+    // extra hearts
+    const heartsContainer = document.getElementById('hearts');
+    if (!heartsContainer) return;
+    for (let i = 0; i < 30; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = `${Math.random() * 100}%`;
+      heart.style.top = `${Math.random() * 100}%`;
+      heart.style.animationDuration = `${3 + Math.random() * 5}s`;
+      heart.style.fontSize = `${1 + Math.random() * 3}rem`;
+      heartsContainer.appendChild(heart);
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    createHearts();
+    updateCountdown();
+    // tick every second
+    setInterval(updateCountdown, 1000);
+    document.body.addEventListener('click', tryPlayMusic, { once: true });
+  });
+</script>
+
+  
+ 
 </body>
 </html>
