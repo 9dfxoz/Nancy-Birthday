@@ -256,6 +256,8 @@
     </style>
 </head>
 <body>
+    <audio id="bg-music" src="birthday.mp3" loop preload="auto" playsinline muted></audio>
+
     <div class="background"></div>
     <canvas id="starCanvas"></canvas>
     <canvas id="petalsCanvas"></canvas>
@@ -270,6 +272,41 @@
     </div>
 
     <script>
+         const bgAudio = document.getElementById('bg-music');
+    if (bgAudio) {
+      // Start playing on load
+      window.addEventListener('load', () => {
+        bgAudio.volume = 0;
+        const playPromise = bgAudio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+              // Fade in from muted to desired volume
+              const targetVol = 0.6;
+              let step = 0;
+              const fadeSteps = 30;
+              const interval = setInterval(() => {
+                step++;
+                bgAudio.volume = Math.min(targetVol, (step / fadeSteps) * targetVol);
+                if (step >= fadeSteps) {
+                  clearInterval(interval);
+                  bgAudio.muted = false;
+                }
+              }, 100); // fade over ~3 seconds
+            })
+            .catch(() => {
+              // Autoplay blocked; try again on first user interaction
+              const resumeOnInteract = () => {
+                bgAudio.play().then(() => {
+                  bgAudio.muted = false;
+                  document.body.removeEventListener('click', resumeOnInteract);
+                }).catch(() => {});
+              };
+              document.body.addEventListener('click', resumeOnInteract, { once: true });
+            });
+        }
+      });
+    }
         // Canvas elements
         const starCanvas = document.getElementById('starCanvas');
         const starCtx = starCanvas.getContext('2d');
@@ -929,4 +966,5 @@
         });
     </script>
 </body>
+
 </html>
