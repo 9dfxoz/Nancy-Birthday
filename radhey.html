@@ -133,8 +133,9 @@
   </style>
 </head>
 <body class="dark">
+ <audio id="bg-music" src="birthday.mp3" loop preload="auto" playsinline muted></audio>
   <nav>
-    <div>💖 Nancy's Birthday</div>
+    <div>Happy Birthday Mera Baccha💖</div>
     <div>
       <a href="#home">Home</a>
       <a href="#message">Message</a>
@@ -146,17 +147,44 @@
   </nav>
 
   <section id="home" class="section">
-    <h1>Happy Birthday Nancy 🎉</h1>
+    <h1>Wish You A Very Happy Birthday Mere dil ke Tukde My bubu Nancy 🎉</h1>
     <p>You light up my world like stars in the night sky ✨</p>
+	<p>Very Firstly Very Happy birthday to my Queen Nancy.... May Mahadev give you happpiness of the whole universe.<br>
+	Love You So Much Mere Bacche 💕<br>
+	Mujhe tujhse bahut kuch kahna tha aur bahut saari batain bhi karni thi....<br>Maine tujhe bahut tang kiya hai poore saal bhar<br> 
+	Thanks Mujhe hamesa samjhne ke liye ....love youu so much for spending a such great time together </p>
     <div class="countdown" id="countdown"></div>
   </section>
 
   <section id="message" class="section">
     <h2>A Message From My Heart ❤️</h2>
     <p>
-      Nancy, on this special day, I just want to say how much you mean to me. Your smile
+      Bubu, on this special day, I just want to say how much you mean to me. Your smile
       brightens my darkest days and your presence fills my world with love. Happy Birthday,
-      my sweetheart!
+      my sweetheart!<br>
+	  Jab ham pahli baar dn par baat kiye the toh laga tha kabhi ham dono ki nhi banegi<br>
+	  but pata nhi chala kab ham dono itte close aa gye ... I dont know ham dono ke beech kya relation hai<br>
+	  but  jo bhi hai aaj kal ke bf gf ke trend se kaafi achha hai....the best part is ki ham kitni bhi ladai kar le toh ek dusre ko mana lete hain <br>
+	  Tu mujhe hamesa meri aur meri family ki tarah lagi hai ....Main thoda sa pagal ladka hunn ...but maine tujhe hamesa khush rakhne ki koshish ki hai<br>
+	  but main hamesa fail hua hunn.... mujhe nhi pta main aise kyu react karta hunn jab tu kisi aur se baat karti hai to,<br>
+	  mujhe bahut not ganda lagta hai like... the other person does not deserve your time... you are onlyy mine.<br>
+	  Ise tum pagal panti samjho , over possessive ya insecure but mere se bardas nhi hota <br>
+	  sayad yahi reason hai ki ham dono baat nhi kar rahe abhi<br>
+	  but jitna bhi time hamne sath main spend kiya kaafi amazing tha wo sab aur wo feeling jo tumhare liye mere dil main thi 💕<br>
+	  chalo chhodo main toh pagal sa ladka hunn....hamesa khush rah bubu yahi meri wishes hain tere liye<br>
+	  main tere se kabhi dur naa jaana chahta tha but tu mere questions se irritate ho rahi thi...<br>
+	  so maine wo kasam di thi ki msg mat karna kyuki wo thoughts mujhe andar hi andar kha rahe the<br>
+	  mujhe nhi pata ki mujhse jyada aisa kya imp tha jo chhupna pada apko<br>
+	  Isiliye ham dono ke liye sabse accha yahi tha ki dur rahain kyuki jaise aryan ne tere se ek baat chhupayi toh tu kitna hurt huyi thi<br>
+	  i thing ham dono ke beech sab clear rahna chahiye tha ... baaki chhodo main apki life se  hamesa ke liye out ho chuka hunn kaafi interfere karne laga tha apki life main<br>
+	  please ab aap mujhe contact mat karna kyuki jahan cheezain chhupani pad jaaye wahan koi relationship nhi chal sakta<br>
+	  WELL MISS YOU SO MUCH BUBU 😢💕 and thanks itti bak bak padhne ke liye
+	  <br>
+	  and one thing bhool jaana mujhe mere jaise chutiya log aate jaate rahte hain 🙂<br>
+	  Wish you a vey bright future further from core of my heart ❤<br> 
+	  
+	  it's a promise.
+I wanted nothing more than to be with you for all our Tomorrows
     </p>
   </section>
 
@@ -182,9 +210,45 @@
     </div>
   </section>
 
-  <audio id="bgm" src="https://dl.sndup.net/kc8m/Love%20Story%20-%20Indila%20BGM.mp3" autoplay loop></audio>
+  
 
   <script>
+   const bgAudio = document.getElementById('bg-music');
+    if (bgAudio) {
+    
+      window.addEventListener('load', () => {
+        bgAudio.volume = 0;
+        const playPromise = bgAudio.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => {
+             
+              const targetVol = 0.6;
+              let step = 0;
+              const fadeSteps = 30;
+              const interval = setInterval(() => {
+                step++;
+                bgAudio.volume = Math.min(targetVol, (step / fadeSteps) * targetVol);
+                if (step >= fadeSteps) {
+                  clearInterval(interval);
+                  bgAudio.muted = false;
+                }
+              }, 100); 
+            })
+            .catch(() => {
+              
+              const resumeOnInteract = () => {
+                bgAudio.play().then(() => {
+                  bgAudio.muted = false;
+                  document.body.removeEventListener('click', resumeOnInteract);
+                }).catch(() => {});
+              };
+              document.body.addEventListener('click', resumeOnInteract, { once: true });
+            });
+        }
+      });
+    }
+	
     let hearts = [];
     for (let i = 0; i < 30; i++) {
       const heart = document.createElement('div');
